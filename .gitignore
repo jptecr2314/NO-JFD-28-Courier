@@ -1,0 +1,7 @@
+artifacts/
+.deps/
+unity/
+*.dll
+*.nobp
+*.zip
+*.log

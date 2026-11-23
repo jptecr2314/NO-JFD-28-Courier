@@ -1,0 +1,137 @@
+{
+  "aircraft": "JFD-28 Courier",
+  "quality": "Balanced",
+  "version": "0.1.7",
+  "gameVersion": "0.34.6",
+  "files": [
+    {
+      "name": "JFD-28 Courier_0.1.7.nobp",
+      "sha256": "F57CBC5483360AF95B068E75F7A725BB4034A944673A77062326BD28DC62A6F0"
+    },
+    {
+      "name": "SuperheavyGroundPhysics.dll",
+      "sha256": "16B6151EB7B073AE1D838F73C7ABDBF10162D6CA443DA0513B6AB806BAABDB7F"
+    },
+    {
+      "name": "CurrentAirframeDamage.dll",
+      "sha256": "C1911A3B7BF5F07B5D1A98C45CDF815C7F6929034B15A72EBBF18F61747983CA"
+    },
+    {
+      "name": "SuperheavyAirframeData.dll",
+      "sha256": "7C725E0057D11EE2FBDDF5E940663AAF2DC7AEB8A147A923346A094955ECC1A4"
+    }
+  ],
+  "nativeReviews": [
+    {
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261123-173852",
+      "checks": [
+        {
+          "aircraft": "JFD-28 Courier",
+          "quality": "Balanced",
+          "qualitySelectorExposed": false,
+          "bastionRegistered": false,
+          "selectedPaintsRemainBalanced": true
+        },
+        {
+          "parts": 122,
+          "contacts": 305,
+          "animatedBranches": 79,
+          "gearMeshes": 121,
+          "gearVisualsHaveSectionOwners": true,
+          "carryThroughSections": 4,
+          "authoredStowDeployPosesDiffer": true
+        },
+        {
+          "rampReleasedAfterBothSupportsFail": true,
+          "rampSeparation": 6.656814,
+          "rampRepairedWithSupports": true
+        },
+        {
+          "nativeGearBarrierContacts": 1,
+          "debrisVelocity": "(-0.04, -0.04, 0.00)",
+          "selectedLoadoutPreserved": true,
+          "modularTurretsFollowSectionOwners": true
+        },
+        {
+          "gearAssembliesReleased": 13,
+          "physicalGearDebris": true,
+          "visualWheelsFollowNativeDebris": true,
+          "coreHp": 100.0,
+          "coordinatorPeakMs": 4.3083,
+          "gearOriginPairs": 7
+        }
+      ],
+      "scope": "Native support-loss, authored gear animation, physical debris and ramp repair. This is not a frame-time benchmark."
+    },
+    {
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261123-173928",
+      "checks": [
+        {
+          "aircraft": "JFD-28 Courier",
+          "quality": "Balanced",
+          "qualitySelectorExposed": false,
+          "bastionRegistered": false,
+          "selectedPaintsRemainBalanced": true
+        },
+        {
+          "parts": 122,
+          "contacts": 305,
+          "animatedBranches": 79,
+          "gearMeshes": 121,
+          "gearVisualsHaveSectionOwners": true,
+          "carryThroughSections": 4,
+          "authoredStowDeployPosesDiffer": true
+        },
+        {
+          "rampReleasedAfterBothSupportsFail": true,
+          "rampSeparation": 6.693773,
+          "rampRepairedWithSupports": true
+        },
+        {
+          "nativeGearBarrierContacts": 1,
+          "debrisVelocity": "(0.00, 0.00, 0.00)",
+          "selectedLoadoutPreserved": true,
+          "modularTurretsFollowSectionOwners": true
+        },
+        {
+          "gearAssembliesReleased": 13,
+          "physicalGearDebris": true,
+          "visualWheelsFollowNativeDebris": true,
+          "coreHp": 100.0,
+          "coordinatorPeakMs": 3.941,
+          "gearOriginPairs": 7
+        }
+      ],
+      "scope": "Native support-loss, authored gear animation, physical debris and ramp repair. This is not a frame-time benchmark."
+    }
+  ],
+  "realGame": {
+    "candidate": "D:/Build/Superheavy/courier-017/candidate",
+    "nativeReviews": [
+      "native-Regression-20261123-173852",
+      "native-Flight-20261123-173928"
+    ],
+    "realGameTaxiMatrix": {
+      "naval": "e-naval-20261123-110048",
+      "airbase_SE": "e-se-20261123-110623",
+      "boscali_north": "e-north-b-20261123-111202",
+      "tc3_ne": "f-tc3-b2-20261123-120332",
+      "ignus_ne_freeflight_fixture": "fx-i-ne-20261123-131641",
+      "city_fixture": "fx-i-city-20261123-131211 (157.9 s, accepted by the owner)"
+    },
+    "interiorCost": [
+      "f-interior-cost-20261123-123140",
+      "fx-interior-cost-ffh-20261123-124110"
+    ],
+    "interiorViews": "fx-h-views-20261123-125208",
+    "fullSession": "fx-i-session-cargo-20261123-134155",
+    "detonationProfile": "fx-i-profile-20261123-133856",
+    "notes": "Real-game runs before candidate I used candidates E/F/H, which differ from I only in interior visibility and the route-hairpin skip; the taxi matrix rows marked fixture used candidate I. Candidate J adds only the retro-only cargo menu rule to I. Candidate K adds only the flank turret names to J. Release 0.1.7 adds to K only the 35 mm turret art (bundle rebuilt from the same CourierGE87_55 content with the rebuilt shared CIWS35) and the CourierCiwsArt runtime patch; natives and the defense run were repeated with 0.1.7.",
+    "retroOnlyMenu": "fx-j-retro-20261123-143006 (Courier + dependencies + Type12RetroKit 0.3.3)",
+    "turretNames": "fx-k-names-20261123-152754",
+    "ciwsDefense017": "fx-017-defense-20261123-174505 (8/8 intercepted, own 35 mm turret art)"
+  },
+  "hangarExit": true,
+  "windowCabin": true,
+  "scope": "Native single-player reviews and real-game single-player runs listed here. No multiplayer certification and no claim beyond the listed runs."
+}
