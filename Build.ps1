@@ -1,6 +1,6 @@
 param([Parameter(Mandatory)][string]$GamePath,[Parameter(Mandatory)][string]$CompilerPath,[Parameter(Mandatory)][string]$ReleaseZip,[string]$OutputDirectory=(Join-Path $PSScriptRoot 'artifacts'))
 # Rebuilds the JFD-28 Courier 0.1.7 damage runtime (CurrentAirframeDamage.dll) from this snapshot.
-# The family runtime (SuperheavyGroundPhysics.dll) is frozen and byte-identical to 0.44.0; it is taken from the
+# The family runtime (SuperheavyGroundPhysics.dll) is frozen; it is taken from the
 # release ZIP. Windows PowerShell 5.1 or PowerShell 7.
 $ErrorActionPreference='Stop'
 New-Item -ItemType Directory -Path $OutputDirectory -Force|Out-Null

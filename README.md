@@ -4,9 +4,7 @@ Courier-only distribution for Nuclear Option 0.34.6. **Balanced is fixed.**
 Bastion and the Performance/Detailed choices are not included. The Courier's
 turret options, cargo/weapon selectors and liveries remain.
 
-## What is new in 0.1.7
-
-First release in this repository; it supersedes the 0.44.0 prerelease.
+## Features
 
 
 - GE-87 configuration: eight GE-87-3-A engines in paired pods with three levels
@@ -48,7 +46,7 @@ not supported in this release.
 ## Install
 
 Close the game, then import the release ZIP through your mod manager, replacing
-the older Courier package (including 0.44.0, whose version number is higher). Do not keep two copies of the package active
+any older Courier package. Do not keep two copies of the package active
 together. For a manual installation, run Install.ps1 with Windows PowerShell 5.1
 (or PowerShell 7) and -GamePath pointing to the game's directory. The installer
 checks the files, backs up the previous package outside the plugins tree and
@@ -105,7 +103,6 @@ game DLLs are not redistributed here.
 
 The wrapper rebuilds CurrentAirframeDamage.dll with COURIER_ONLY and
 COURIER_BALANCED_ONLY. The family runtime (SuperheavyGroundPhysics.dll) and the
-airframe data are byte-identical to 0.44.0; the family runtime is taken from the
-release ZIP, and its sources (the Superheavy*.cs files here) are the ones
-published with 0.44.0, which reproduced it. Building the model bundle itself
+airframe data are frozen; the family runtime is taken from the release ZIP, and
+its sources (the Superheavy*.cs files here) are the ones that reproduced it. Building the model bundle itself
 requires the separate authoring project; it is not part of this snapshot.
