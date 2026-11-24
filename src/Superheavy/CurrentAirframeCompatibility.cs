@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +44,13 @@ namespace Japensou.NuclearOption.CurrentDamage
             CourierTurretNames.Install(h);
             CourierCiwsArt.Install(h);
             CourierDefenseCoverage.Install(h);
+            CourierHandling.Install(h);
+            CourierCargoRelease.Install(h);
+            CourierEnglishNotices.Install(h);
+            CourierFireInterlock.Install(h);
+            CourierGroundUnload.Install(h);
+            CourierGunSmoke.Install(h);
+            CourierContainerDrop.Install(h);
         }
         // MFD pages are drawn on the CPU (~2.7 ms per page at 48 Hz) and one external feed camera renders every
         // frame while the Courier is the local aircraft. Beyond 60 m from the cockpit glass nobody can read them:

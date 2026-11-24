@@ -13,7 +13,60 @@ namespace Japensou.NuclearOption.CurrentDamage
     {
         private const string RetroPrefix = "JP_RDK_";
 
-        internal static void Install(Harmony h) => h.CreateClassProcessor(typeof(MenuOpen)).Patch();
+        internal static void Install(Harmony h)
+        {
+            h.CreateClassProcessor(typeof(MenuOpen)).Patch();
+            var vet = AccessTools.Method(typeof(WeaponChecker), nameof(WeaponChecker.VetLoadout));
+            var runtime = CurrentAirframeCompatibility.Family("SuperheavySpatialCargoRuntime");
+            addOptional = runtime == null ? null : AccessTools.Method(runtime, "AddAryxCargoOptions");
+            if (vet != null)
+                h.Patch(vet, prefix: new HarmonyMethod(typeof(CourierRetroOnlyCargo), nameof(BeforeVet)) { priority = Priority.Last });
+        }
+
+        // Owner report for 0.1.8 (23/11/2026): with more than two loads, the rest did not appear (two HLT MArt in front,
+        // seven CRV-L Serval Mortars [Retro Kit] behind: only the MArts spawned). The menu adds the optional mod cargos
+        // (Aryx) to the aircraft being shown, and the Retro Kit swap then replaces them by their "JP_RDK_" versions,
+        // but the spawn check (WeaponChecker.VetLoadout) compares the loadout against the Courier prefab, which never
+        // got those options: Player.log showed "VetWeapon failed ... JP_RDK_Aryx_CRVL_1_Mortar_x1 ... Mount is not in
+        // hardpointSet's options" seven times, and each refused load was dropped. Before that check the prefab gets
+        // the same optional cargos and the same Retro Kit swap as the menu, and every cargo option the shown aircraft
+        // offers in a set.
+        private static System.Reflection.MethodInfo addOptional;
+        private static readonly Dictionary<HardpointSet, HardpointSet> Shown = new Dictionary<HardpointSet, HardpointSet>();
+
+        private static void BeforeVet(AircraftDefinition __0)
+        {
+            try
+            {
+                if (__0 == null || __0.jsonKey != "jp_superheavy_ground_test" || __0.unitPrefab == null) return;
+                var prefab = __0.unitPrefab.GetComponent<Aircraft>();
+                if (prefab == null || prefab.weaponManager == null) return;
+                int added = Prepare(prefab.weaponManager);
+                if (added > 0) CurrentAirframeDamagePlugin.Log.LogInfo($"Courier cargo check: {added} menu cargo options added to the Courier prefab before the spawn check.");
+            }
+            catch (Exception e) { CurrentAirframeDamagePlugin.Log.LogWarning("Courier cargo check: " + e.Message); }
+        }
+
+        private static int Prepare(WeaponManager manager)
+        {
+            var sets = manager.hardpointSets;
+            if (sets == null) return 0;
+            int before = 0;
+            foreach (var set in sets) before += set?.weaponOptions?.Count ?? 0;
+            if (addOptional != null && Encyclopedia.WeaponLookup != null)
+                addOptional.Invoke(null, new object[] { manager, Encyclopedia.WeaponLookup });
+            PreferRetro(manager);
+            int added = 0;
+            foreach (var set in sets)
+            {
+                if (set?.weaponOptions == null || !Shown.TryGetValue(set, out var shown) || shown?.weaponOptions == null) continue;
+                foreach (var mount in shown.weaponOptions)
+                    if (mount != null && mount.Cargo && !set.weaponOptions.Contains(mount)) { set.weaponOptions.Add(mount); added++; }
+            }
+            int after = 0;
+            foreach (var set in sets) after += set?.weaponOptions?.Count ?? 0;
+            return Math.Max(added, after - before);
+        }
 
         private static bool IsCourier(Aircraft a) => a != null && a.definition != null && a.definition.jsonKey == "jp_superheavy_ground_test";
 
@@ -50,7 +103,14 @@ namespace Japensou.NuclearOption.CurrentDamage
                     if (!IsCourier(__0)) return;
                     int changed = PreferRetro(__0.weaponManager);
                     var prefab = __0.definition.unitPrefab != null ? __0.definition.unitPrefab.GetComponent<Aircraft>() : null;
-                    if (prefab != null && prefab != __0) changed += PreferRetro(prefab.weaponManager);
+                    if (prefab != null && prefab != __0)
+                    {
+                        changed += PreferRetro(prefab.weaponManager);
+                        // remember which shown set belongs to which prefab set (same index) for the spawn check
+                        var shown = __0.weaponManager?.hardpointSets; var own = prefab.weaponManager?.hardpointSets;
+                        if (shown != null && own != null && shown.Length == own.Length)
+                            for (int i = 0; i < own.Length; i++) if (own[i] != null && shown[i] != null && own[i] != shown[i]) Shown[own[i]] = shown[i];
+                    }
                     if (changed > 0) CurrentAirframeDamagePlugin.Log.LogInfo($"Courier cargo menu: {changed} normal loads replaced by their Retro Kit versions.");
                 }
                 catch (Exception e) { CurrentAirframeDamagePlugin.Log.LogWarning("Courier cargo menu (retro only): " + e.Message); }

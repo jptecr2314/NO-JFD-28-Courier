@@ -1,70 +1,39 @@
 {
   "aircraft": "JFD-28 Courier",
   "quality": "Balanced",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "gameVersion": "0.34.6",
   "files": [
     {
-      "name": "JFD-28 Courier_0.1.7.nobp",
-      "sha256": "F57CBC5483360AF95B068E75F7A725BB4034A944673A77062326BD28DC62A6F0"
+      "folder": "br.japensou.nuclearoption.superheavygroundtest",
+      "name": "JFD-28 Courier_0.1.9.nobp",
+      "sha256": "AFBAC9BE0F81AE6F3A23FA0955320D5192B4ED804C2B0945CABA057CD24A9A3F"
     },
     {
+      "folder": "br.japensou.nuclearoption.superheavygroundtest",
       "name": "SuperheavyGroundPhysics.dll",
       "sha256": "16B6151EB7B073AE1D838F73C7ABDBF10162D6CA443DA0513B6AB806BAABDB7F"
     },
     {
+      "folder": "br.japensou.nuclearoption.superheavygroundtest",
       "name": "CurrentAirframeDamage.dll",
-      "sha256": "C1911A3B7BF5F07B5D1A98C45CDF815C7F6929034B15A72EBBF18F61747983CA"
+      "sha256": "7B3DDB9CAC492AD2CDDEC2133BC9980FCE6CB9B2150120770EB4E1C6B4657C69"
     },
     {
+      "folder": "br.japensou.nuclearoption.superheavygroundtest",
       "name": "SuperheavyAirframeData.dll",
       "sha256": "7C725E0057D11EE2FBDDF5E940663AAF2DC7AEB8A147A923346A094955ECC1A4"
-    }
-  ],
-  "nativeReviews": [
-    {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261123-173852",
-      "checks": [
-        {
-          "aircraft": "JFD-28 Courier",
-          "quality": "Balanced",
-          "qualitySelectorExposed": false,
-          "bastionRegistered": false,
-          "selectedPaintsRemainBalanced": true
-        },
-        {
-          "parts": 122,
-          "contacts": 305,
-          "animatedBranches": 79,
-          "gearMeshes": 121,
-          "gearVisualsHaveSectionOwners": true,
-          "carryThroughSections": 4,
-          "authoredStowDeployPosesDiffer": true
-        },
-        {
-          "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 6.656814,
-          "rampRepairedWithSupports": true
-        },
-        {
-          "nativeGearBarrierContacts": 1,
-          "debrisVelocity": "(-0.04, -0.04, 0.00)",
-          "selectedLoadoutPreserved": true,
-          "modularTurretsFollowSectionOwners": true
-        },
-        {
-          "gearAssembliesReleased": 13,
-          "physicalGearDebris": true,
-          "visualWheelsFollowNativeDebris": true,
-          "coreHp": 100.0,
-          "coordinatorPeakMs": 4.3083,
-          "gearOriginPairs": 7
-        }
-      ],
-      "scope": "Native support-loss, authored gear animation, physical debris and ramp repair. This is not a frame-time benchmark."
     },
     {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261123-173928",
+      "folder": "Type12RetroKit",
+      "name": "Type12RetroKit.dll",
+      "sha256": "1634670EC92213B71A6C2809987B20EDBCF7B36522909B8FB5EC619E235F6A2D"
+    }
+  ],
+  "retroKitVersion": "0.4.0",
+  "nativeReviews": [
+    {
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261124-015150",
       "checks": [
         {
           "aircraft": "JFD-28 Courier",
@@ -84,7 +53,7 @@
         },
         {
           "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 6.693773,
+          "rampSeparation": 5.43482876,
           "rampRepairedWithSupports": true
         },
         {
@@ -98,7 +67,48 @@
           "physicalGearDebris": true,
           "visualWheelsFollowNativeDebris": true,
           "coreHp": 100.0,
-          "coordinatorPeakMs": 3.941,
+          "coordinatorPeakMs": 3.6241,
+          "gearOriginPairs": 7
+        }
+      ],
+      "scope": "Native support-loss, authored gear animation, physical debris and ramp repair. This is not a frame-time benchmark."
+    },
+    {
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261124-015224",
+      "checks": [
+        {
+          "aircraft": "JFD-28 Courier",
+          "quality": "Balanced",
+          "qualitySelectorExposed": false,
+          "bastionRegistered": false,
+          "selectedPaintsRemainBalanced": true
+        },
+        {
+          "parts": 122,
+          "contacts": 305,
+          "animatedBranches": 79,
+          "gearMeshes": 121,
+          "gearVisualsHaveSectionOwners": true,
+          "carryThroughSections": 4,
+          "authoredStowDeployPosesDiffer": true
+        },
+        {
+          "rampReleasedAfterBothSupportsFail": true,
+          "rampSeparation": 6.51831245,
+          "rampRepairedWithSupports": true
+        },
+        {
+          "nativeGearBarrierContacts": 1,
+          "debrisVelocity": "(0.00, 0.00, 0.00)",
+          "selectedLoadoutPreserved": true,
+          "modularTurretsFollowSectionOwners": true
+        },
+        {
+          "gearAssembliesReleased": 13,
+          "physicalGearDebris": true,
+          "visualWheelsFollowNativeDebris": true,
+          "coreHp": 100.0,
+          "coordinatorPeakMs": 3.9849,
           "gearOriginPairs": 7
         }
       ],
@@ -106,10 +116,10 @@
     }
   ],
   "realGame": {
-    "candidate": "D:/Build/Superheavy/courier-017/candidate",
+    "candidate": "D:/Build/Superheavy/courier-0450/candidate-k",
     "nativeReviews": [
-      "native-Regression-20261123-173852",
-      "native-Flight-20261123-173928"
+      "native-Regression-20261123-152644",
+      "native-Flight-20261123-152720"
     ],
     "realGameTaxiMatrix": {
       "naval": "e-naval-20261123-110048",
@@ -126,10 +136,44 @@
     "interiorViews": "fx-h-views-20261123-125208",
     "fullSession": "fx-i-session-cargo-20261123-134155",
     "detonationProfile": "fx-i-profile-20261123-133856",
-    "notes": "Real-game runs before candidate I used candidates E/F/H, which differ from I only in interior visibility and the route-hairpin skip; the taxi matrix rows marked fixture used candidate I. Candidate J adds only the retro-only cargo menu rule to I. Candidate K adds only the flank turret names to J. Release 0.1.7 adds to K only the 35 mm turret art (bundle rebuilt from the same CourierGE87_55 content with the rebuilt shared CIWS35) and the CourierCiwsArt runtime patch; natives and the defense run were repeated with 0.1.7.",
+    "notes": "Real-game runs before candidate I used candidates E/F/H, which differ from I only in interior visibility and the route-hairpin skip; the taxi matrix rows marked fixture used candidate I. Candidate J adds only the retro-only cargo menu rule to I. Candidate K adds only the flank turret names to J.",
     "retroOnlyMenu": "fx-j-retro-20261123-143006 (Courier + dependencies + Type12RetroKit 0.3.3)",
     "turretNames": "fx-k-names-20261123-152754",
-    "ciwsDefense017": "fx-017-defense-20261123-174505 (8/8 intercepted, own 35 mm turret art)"
+    "release019": {
+      "candidate": "D:/Build/Superheavy/courier-019/candidate",
+      "retroKit": "D:/Build/Superheavy/retro040/stage/Type12RetroKit (0.4.0)",
+      "nativeReviews": [
+        "native-Regression-20261124-004413",
+        "native-Flight-20261124-004447"
+      ],
+      "spoilers": "flight-ab5-20261123-235202",
+      "lowSpeedRoll": "flight-rs5-20261123-235236 (282 km/h: 9.2 deg in 2 s, peak 6 deg/s, both sides; 0.1.8 gave about 1 deg)",
+      "containerGuidedToNearest": [
+        "flight-drop13-20261124-*",
+        "flight-drop16Muni-20261124-003410"
+      ],
+      "fuelContainerBrakingOnly": "flight-drop17Fuel-20261124-003801",
+      "vehicleRetroRegression": "flight-drop18Veh-20261124-004116",
+      "repack": {
+        "candidate": "D:/Build/Superheavy/courier-0110/candidate",
+        "runtime": "CurrentAirframeDamage.dll 7B3DDB9C (NOVR game-build fallback, uniform inner engines, sealed aft duct)",
+        "nativeReviews": [
+          "native-Regression-20261124-015150",
+          "native-Flight-20261124-015224"
+        ],
+        "engineUniform": [
+          "flight-eng3-20261124-012318",
+          "flight-eng4-20261124-*"
+        ],
+        "enginePaint": [
+          "flight-paint1-20261124-013815",
+          "flight-paint2-20261124-014321",
+          "flight-paint3-20261124-014730",
+          "flight-paint4-20261124-014944 (spawned in PALA Desert Camo, bdf-digital applied; LOD0/LOD1)"
+        ],
+        "novr": "normal path verified by the native reviews; relocated-assembly path not run in a NOVR install"
+      }
+    }
   },
   "hangarExit": true,
   "windowCabin": true,

@@ -615,6 +615,10 @@ namespace Japensou.NuclearOption.CurrentDamage
                 var filler=CourierPresentation.CabinCeilingFiller(windowInterior,transform);
                 if(filler){windowInterior=windowInterior.Concat(new[]{filler}).ToArray();windowShadow=windowShadow.Concat(new[]{UnityEngine.Rendering.ShadowCastingMode.Off}).ToArray();}
                 CurrentAirframeDamagePlugin.Log.LogInfo("Courier cabin grey: "+CourierPresentation.DarkenCabin(all)+" renderers.");
+                CourierHandling.RehostRootFairing(Parts.Values.Where(x=>x).Cast<UnitPart>().ToList());
+                CourierRampToe.Attach(transform,Parts.Values.Where(x=>x).Cast<UnitPart>().ToList(),all);
+                CourierSpoilerSkins.Attach(transform,Parts.Values.Where(x=>x).Cast<UnitPart>().ToList());
+                CourierEngineUniform.Apply(transform,Parts.Values.Where(x=>x).Cast<UnitPart>().ToList());
                 // folding crew stairs (segments 01-09; 00 is the door): stowed, they stick out of the GE87 nose skin
                 crewStairs=all.Where(r=>r.name.Length==23&&r.name.StartsWith("SHGT_CrewAccess_Mesh_0")&&r.name!="SHGT_CrewAccess_Mesh_00").ToArray();
                 // ramp/cassette mechanisms inside the hold (the ramp skin 011 and clamshell doors 021/022 are exterior)

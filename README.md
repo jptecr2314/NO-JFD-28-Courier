@@ -1,4 +1,4 @@
-# JFD-28 Courier 0.1.7 [0.34.6]
+﻿# JFD-28 Courier 0.1.9 [0.34.6]
 
 Courier-only distribution for Nuclear Option 0.34.6. **Balanced is fixed.**
 Bastion and the Performance/Detailed choices are not included. The Courier's
@@ -18,16 +18,85 @@ turret options, cargo/weapon selectors and liveries remain.
   until the wing has passed the doors, then joins the taxi route.
 - Flaps retract progressively with speed after takeoff, so the aircraft no
   longer sinks when it cleans up.
-- With the optional Cargo Retro Landing Kit installed, every cargo that has a
+- The Cargo Retro Landing Kit comes in the package: every cargo that has a
   Retro Kit version is offered only as the Retro Kit version.
 - The four 35 mm JFD-28 CIWS turrets have their own container-style gunhouse
   (390 triangles each): the gun sits low in an open front slot with its breech
   inside the house, fires with muzzle flash and smoke, and the barrel recoils.
   Elevation runs from -5 to 80 degrees. The gunhouse and the gun cradle take
   the aircraft's livery, and the turret no longer changes to another model
-  when the Chimera mod is installed.- The whole interior (flight deck, cargo bay, structure and ramp mechanisms)
+  when the Chimera mod is installed.
+- The whole interior (flight deck, cargo bay, structure and ramp mechanisms)
   is drawn within 250 m of the camera, from any angle: through the windows,
   an open ramp or bay, and damage openings. Dark grey cabin finish.
+
+## Changes in 0.1.9
+
+- Fixed: with NOVR (or another mod that relocates the game's Assembly-CSharp)
+  installed, the Courier could not spawn. The game-version check now falls
+  back to the game's own Managed/Assembly-CSharp.dll when the loaded assembly
+  has no readable file.
+- All eight GE-87 engines now share the same nacelle. The four inner engines
+  used a longer, closed study cowl that hid the dark exhaust, so their backs
+  looked white next to the burnt-looking outer engines.
+- Fixed: the rear of every engine looked partly see-through. Behind the
+  painted cowl's chevrons the exhaust duct was only drawn from the inside, so
+  you saw through the nacelle; it is now closed from outside as a metal
+  sleeve, and the cowl keeps your livery up to the chevrons.
+- Low-speed roll: below about 360 km/h the flight assist no longer cancels most
+  of the roll input, so the Courier banks again at approach and cargo-drop
+  speeds instead of feeling like a stone. High-speed roll and pitch limits are
+  unchanged.
+- Spoilers and speed brakes: the visible panels now stay locked to their hinge
+  and move together on both wings. In flight the speed brake opens to about 40
+  degrees (55 on the ground) at a steady hinge rate, and roll spoilers rise up
+  to about 35 degrees on the wing going down. Before, the panels lagged, sagged
+  and opened unevenly, and the speed brake stood almost upright.
+- The Cargo Retro Landing Kit 0.4.0 is bundled in the package (folder
+  BepInEx/plugins/Type12RetroKit). It replaces any older copy of the kit.
+- Retro Kit supply containers (munitions, fuel and naval supply). After an air
+  release the container steers to the nearest friendly unit it can reach from
+  its release height, judging horizontal distance and height difference, and
+  lands beside it; a unit several kilometres away is never chosen. A naval
+  container settles on the water beside a friendly ship. With no friendly unit
+  in reach, it lands in the nearest clear spot. The light fuel container cannot
+  steer against its drag, so it brakes straight down where it falls when that
+  ground is safe. The cockpit notice says where it is going. Remember that the
+  container still rolls along the bay for about ten seconds after release.
+
+## Changes in 0.1.8
+
+- Pitch handling for a heavy transport: with full back stick the flight
+  assist now holds about 2.5 g, about 5 degrees per second of pitch rate and
+  about 30 degrees of nose-up attitude, so the Courier no longer loops. Nose-down
+  inputs and flying with the flight assist off are unchanged.
+- Roll spoilers open visibly on their hinges (about 25 degrees on the wing going
+  down) instead of rising like a flat step; a strip of wing-root fairing no
+  longer lifts with the inboard spoiler. Roll forces are unchanged.
+- Cargo still mounted when the Courier is destroyed now comes out of the wreck
+  as destroyed vehicles, as on other cargo aircraft.
+- All in-game airdrop and gun-cradle notices are in English.
+- Gun interlock: before a defensive gun fires, a thin check runs along each
+  barrel; if it meets any part of the same Courier, that gun holds fire until
+  the barrel clears. The guns can no longer shoot their own aircraft. Other
+  aircraft and units are not affected.
+- Ground unloading: each vehicle waits until it has settled off the ramp, then
+  drives about 85 m aft of the Courier (alternating left and right) before its
+  normal AI takes over and heads for its objectives, so vehicles no longer turn
+  back into the aircraft. Pressing release again while a vehicle is still on
+  the ramp no longer asks you to clear the area: the release is queued and the
+  next vehicle comes out as soon as the exit lane is free.
+- Cargo ramp: the slatted face of the folding ramp toe now flips out together
+  with the toe; before, it stayed lying on top of the open ramp.
+- Cargo layouts with more than two loads: cargo added by other mods (for example
+  the CRV-L Serval vehicles) and its Retro Kit version could be chosen in the
+  cargo organizer but was refused when the Courier spawned, so only the game's
+  own loads appeared. The Courier now accepts every load the organizer offers.
+- Cargo is released only with the normal weapon release (select Cargo and
+  fire), on the ground or in the air. The separate Ctrl+F10 unload key was
+  removed.
+- The 20 mm flank guns now show a muzzle flash and smoke on every burst,
+  using the effects of the Courier's 35 mm guns.
 
 ## Requirements
 
@@ -36,7 +105,8 @@ turret options, cargo/weapon selectors and liveries remain.
 - Blueprinter 2.1.1
 - HeavyHangar 0.2.0
 
-Dependencies are not bundled.
+Dependencies are not bundled. The Cargo Retro Landing Kit is part of this
+package.
 
 ## Multiplayer
 
@@ -64,7 +134,10 @@ separately.
 - When the game's own AI flies the Courier in pattern turns it can reach about 750 km/h; contacts between fuselage parts were recorded once at that speed.
 - First detonation close to the aircraft: one frame of about 27 ms on the test PC (later ones about 17 ms).
 - About 813,000 triangles at full detail, interior included.
-- Not tested in this release: bomb-bay munition release and landing.
+- The gun interlock holds fire while a barrel points at the Courier itself, so a turret can stay silent against targets hidden behind the tail, wings or engines from where it sits.
+- Retro Kit containers pick a friendly unit within a reach that grows with release height (200 to 1,200 m around the point where the container would fall). Remember the container rolls along the bay for about ten seconds after release before it leaves the aircraft.
+- The 1,500 L fuel container is too light to steer against its drag: it is never guided to a unit; it brakes straight down where it falls when that ground is safe, otherwise the release is refused.
+- Not tested in this release: the Naval Supply Container Retro Kit delivery to a friendly ship, the Small Munitions Pallet and Radar Container Retro Kits, and bomb-bay munition release and landing.
 
 ## Credits
 
@@ -98,7 +171,7 @@ own installed game. Supply csc.exe through -CompilerPath; the compiler and the
 game DLLs are not redistributed here.
 
 ```powershell
-./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.1.7-Balanced.zip'
+./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.1.8-Balanced.zip'
 ```
 
 The wrapper rebuilds CurrentAirframeDamage.dll with COURIER_ONLY and

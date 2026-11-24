@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using BepInEx;
 using BepInEx.Configuration;
@@ -54,12 +55,29 @@ namespace Japensou.NuclearOption.CurrentDamage
             var harmony=new Harmony(Info.Metadata.GUID);
             try
             {
-                if(Hash(typeof(UnitPart).Assembly.Location)!=CurrentDamageContract.GameAssemblySha256||!BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue("br.japensou.nuclearoption.superheavy.groundphysics",out var family)||Hash(family.Location)!=CurrentDamageContract.FamilyRuntimeSha256)throw new InvalidOperationException("Game/interface runtime differs from this candidate's pinned ABI.");
+                if(!GameAssemblyMatches()||!BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue("br.japensou.nuclearoption.superheavy.groundphysics",out var family)||Hash(family.Location)!=CurrentDamageContract.FamilyRuntimeSha256)throw new InvalidOperationException("Game/interface runtime differs from this candidate's pinned ABI.");
                 NativePartitionIntegration.Initialize(harmony);FreshStructureDamage.Install(harmony);
                 NativePartitionIntegration.IntegrationReady=true;
                 Log.LogInfo("Own structural damage ready: explicit fresh-structure profiles; coherent native repair transactions; no old skeleton, damage thresholds, effects or 23-part fallback.");
             }
             catch(Exception e){NativePartitionIntegration.IntegrationReady=false;harmony.UnpatchSelf();Log.LogError("Own structural damage setup failed. Converted aircraft spawning is blocked; no legacy fallback: "+e);}
+        }
+        // Player reports 24/11/2026: with NOVR installed the JFD-28 could not spawn. NOVR's preloader module hands the game a
+        // relocated or in-memory Assembly-CSharp, so Assembly.Location is empty (or another file) and hashing it threw, which
+        // blocked the aircraft. The game version is now checked on the loaded assembly's file when there is one, otherwise
+        // on the game's own Managed/Assembly-CSharp.dll; any of them matching the pinned build is accepted.
+        private static bool GameAssemblyMatches()
+        {
+            var candidates=new List<string>();string loaded="";
+            try{loaded=typeof(UnitPart).Assembly.Location??"";if(loaded.Length>0)candidates.Add(loaded);}catch{}
+            try{candidates.Add(Path.Combine(BepInEx.Paths.ManagedPath,"Assembly-CSharp.dll"));}catch{}
+            foreach(var path in candidates.Distinct())
+            {
+                try{if(File.Exists(path)&&Hash(path)==CurrentDamageContract.GameAssemblySha256){if(path!=loaded)Log.LogInfo("Game build verified from "+path+"; the loaded Assembly-CSharp ('"+loaded+"') was relocated by another mod.");return true;}}
+                catch(Exception e){Log.LogWarning("Game build check could not read "+path+": "+e.Message);}
+            }
+            Log.LogError("Game build differs from the one this Courier build was made for (checked: "+string.Join(", ",candidates.Select(c=>"'"+c+"'"))+").");
+            return false;
         }
         internal static string Hash(string path){using(var h=SHA256.Create())using(var f=File.OpenRead(path))return BitConverter.ToString(h.ComputeHash(f)).Replace("-","").ToLowerInvariant();}
     }
