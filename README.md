@@ -160,6 +160,13 @@ Nuclear Option and its game resources belong to their respective owners.
 BepInEx, Harmony, Blueprinter and HeavyHangar remain separate dependencies
 under their own terms.
 
+## AI disclosure
+
+This mod was made with the help of an AI assistant (Claude, by Anthropic). AI
+assistance was used for the runtime code, the build and test tools (including
+the Blender and Unity processing scripts) and the documentation. The author
+directed the work, chose what to keep and tested the results in the game.
+
 See VALIDATION.json and SHA256SUMS.txt for the tested release inputs.
 
 ## Build the runtime source
