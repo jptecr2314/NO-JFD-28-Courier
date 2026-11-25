@@ -96,13 +96,81 @@ namespace Japensou.NuclearOption.CurrentDamage
         }
 
         // The family exit test also stops for vehicles that will drive away by themselves; remember when that is all.
-        private static void AfterClearExit(Component __instance, bool __result, ref string obstruction)
+        private static void AfterClearExit(Component __instance, ref bool __result, ref string obstruction, object[] __args)
         {
             unitBlocksExit = false;
             string name = obstruction;
             if (__result || string.IsNullOrEmpty(name)) return;
             var near = Physics.OverlapSphere(__instance.transform.position, 120f, ~0, QueryTriggerInteraction.Ignore);
             unitBlocksExit = near.Any(c => c != null && c.name == name && c.GetComponentInParent<GroundVehicle>() != null);
+            if (unitBlocksExit) return;
+            try
+            {
+                if (__instance.GetComponent<Aircraft>() is Aircraft aircraft && IsCourier(aircraft) &&
+                    ClearAboveGround(__instance, __args[0] as MountedCargo, __args[1], out string lowName))
+                {
+                    __result = true;
+                    obstruction = null;
+                }
+            }
+            catch (Exception e) { CurrentAirframeDamagePlugin.Log.LogWarning("Courier exit clearance: " + e.Message); }
+        }
+
+        // Owner request 25/11/2026 (Spearhead as cargo): with three Spearheads (213 t) the gear sits about 0.17 m lower
+        // than with three IFVs, and the family exit box (bottom 0.35 m above the rail tip, in the aircraft frame) then
+        // reaches into the runway itself (flight-unload3-20261125: "Collider=terrain_naval_island1_roads" on every press,
+        // no vehicle out). The same family test is repeated here with the box bottom kept 0.30 m above the ground found
+        // under it; the top, the width, the lane and the sweep are the family's. A wall, building, ship or vehicle
+        // still blocks; only the ground surface the vehicle drives on is no longer counted as an obstruction.
+        private static System.Reflection.FieldInfo railTipField, aircraftField, shiftField, pushField;
+        private static System.Reflection.MethodInfo halfSpan, tryGetLoad, releaseBounds;
+        private static bool ClearAboveGround(Component rail, MountedCargo cargo, object route, out string obstruction)
+        {
+            obstruction = null;
+            if (cargo == null || route == null) return false;
+            if (railTipField == null)
+            {
+                railTipField = AccessTools.Field(railType, "railTip");
+                aircraftField = AccessTools.Field(railType, "aircraft");
+                halfSpan = AccessTools.Method(railType, "SupportHalfSpan");
+                shiftField = AccessTools.Field(route.GetType(), "Shift");
+                pushField = AccessTools.Field(typeof(MountedCargo), "pushDistance");
+                var runtime = CurrentAirframeCompatibility.Family("SuperheavySpatialCargoRuntime");
+                var plan = CurrentAirframeCompatibility.Family("SuperheavySpatialCargoPlan");
+                tryGetLoad = runtime == null ? null : AccessTools.Method(runtime, "TryGetLoad");
+                releaseBounds = plan == null ? null : AccessTools.Method(plan, "GetReleaseBounds");
+            }
+            if (railTipField == null || halfSpan == null || shiftField == null || pushField == null) return false;
+            var t = rail.transform;
+            int mask = (int)PhysicsLayers.StaticsMask | (int)PhysicsLayers.ShipsMask | (int)PhysicsLayers.DefaultMask;
+            Vector3 rear = -Vector3.ProjectOnPlane(t.forward, Vector3.up).normalized;
+            Quaternion rotation = Quaternion.LookRotation(rear);
+            Vector3 localExit = (Vector3)railTipField.GetValue(rail);
+            var extents = new Vector3(2.8f, 2.25f, .3f);
+            var args = new object[] { aircraftField?.GetValue(rail), cargo, null };
+            if (tryGetLoad != null && releaseBounds != null && (bool)tryGetLoad.Invoke(null, args))
+            {
+                var release = (Bounds)releaseBounds.Invoke(null, new[] { args[2] });
+                localExit.x = release.center.x + (float)shiftField.GetValue(route);
+                extents.x = release.extents.x + .15f;
+            }
+            Vector3 center = t.TransformPoint(localExit) + Vector3.up * 2.6f;
+            float top = center.y + extents.y;
+            var below = Physics.RaycastAll(center, Vector3.down, 12f, (int)PhysicsLayers.StaticsMask, QueryTriggerInteraction.Ignore)
+                .Where(h => !h.collider.transform.IsChildOf(t)).OrderBy(h => h.distance).ToArray();
+            if (below.Length == 0) return false;
+            float bottom = Mathf.Max(center.y - extents.y, below[0].point.y + .30f);
+            if (top - bottom < 2.5f) return false; // no room for a vehicle: keep the family refusal
+            extents.y = (top - bottom) * .5f;
+            center.y = bottom + extents.y;
+            var overlap = Physics.OverlapBox(center, extents, rotation, mask, QueryTriggerInteraction.Ignore)
+                .FirstOrDefault(c => !c.transform.IsChildOf(t));
+            if (overlap != null) { obstruction = overlap.name; return false; }
+            float travel = (float)halfSpan.Invoke(null, new object[] { cargo }) + 1.2f + (float)pushField.GetValue(cargo) + 2f;
+            foreach (var hit in Physics.BoxCastAll(center, extents, rear, rotation, travel, mask, QueryTriggerInteraction.Ignore))
+                if (!hit.collider.transform.IsChildOf(t) && Vector3.Dot(hit.normal, Vector3.up) < .75f)
+                { obstruction = hit.collider.name; return false; }
+            return true;
         }
 
         private static bool BeforeReport(Component __instance, string reason)
@@ -111,10 +179,12 @@ namespace Japensou.NuclearOption.CurrentDamage
             {
                 if (!(__instance.GetComponent<Aircraft>() is Aircraft aircraft) || !IsCourier(aircraft)) return true;
                 var queue = For(aircraft);
-                // Ground unloads only: an airdrop is planned for the position at the moment of release, so a refused
-                // airdrop keeps the family warning and the player presses again on the next pass.
-                bool queueable = onGround != null && onGround(__instance) &&
-                    (reason == WaitMessage || (reason == ClearAreaMessage && unitBlocksExit));
+                // Owner request 25/11/2026 ("faz as coisas saírem mais rápido do avião"): in the air a press refused only
+                // because the rail is busy is queued as well. The queued release replays the native LaunchMount when the
+                // rail is free, so the family plans that airdrop from the aircraft's position at that moment, as for a
+                // press made then. Any other airdrop refusal keeps the family warning and clears the queue.
+                bool ground = onGround != null && onGround(__instance);
+                bool queueable = ground ? (reason == WaitMessage || (reason == ClearAreaMessage && unitBlocksExit)) : reason == WaitMessage;
                 unitBlocksExit = false;
                 if (queueable)
                 {
@@ -138,10 +208,13 @@ namespace Japensou.NuclearOption.CurrentDamage
 
             internal void Request()
             {
-                int loaded = Station != null ? Station.Ammo : Aircraft.weaponStations.Where(s => s.Cargo).Sum(s => s.Ammo);
-                int busy = Rail() != null && isMoving(rail) ? 1 : 0;
+                // every cargo station counts: each spatial cargo position is its own station (flight-salvo1-20261125:
+                // three presses on three Spearheads queued only one, as the pressed station had one load)
+                int loaded = Aircraft.weaponStations.Where(s => s.Cargo).Sum(s => s.Ammo);
+                // the load on the moving rail was already spent (ammo 0), so it is not subtracted again
+                // (flight-salvo2-20261125: loaded - busy released only 2 of 3)
                 if (!replaying)
-                    Pending = Mathf.Clamp(Pending + 1, 0, Mathf.Max(0, loaded - busy));
+                    Pending = Mathf.Clamp(Pending + 1, 0, Mathf.Max(0, loaded));
                 if (!replaying && GameManager.IsLocalAircraft(Aircraft) && Time.unscaledTime - lastNotice > 1.5f && SceneSingleton<AircraftActionsReport>.i != null)
                 {
                     lastNotice = Time.unscaledTime;

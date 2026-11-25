@@ -399,12 +399,24 @@ namespace Japensou.NuclearOption.CurrentDamage
                 (GetComponent<CourierAssemblyOwnership>()??gameObject.AddComponent<CourierAssemblyOwnership>()).Bind(this);
             Ready=true;ApplyConfiguredResistance();
         }
+        private const float SkinPierceScale=64f,SkinBlastScale=30f,FramePierceScale=6f,FrameBlastScale=10f;
         public void ApplyConfiguredResistance()
         {
             foreach(var profile in profiles)
             {
                 if(!profile.Part)continue;float scale=profile.Category=="Wing"?CurrentAirframeDamagePlugin.WingResistance.Value:profile.Category=="Tail"?CurrentAirframeDamagePlugin.TailResistance.Value:profile.Category=="Engine"?CurrentAirframeDamagePlugin.EngineResistance.Value:CurrentAirframeDamagePlugin.BodyResistance.Value;
-                NativePartitionIntegration.Set(profile.Part,"armorProperties",profile.Owned.armor.Native(scale));
+                var armor=profile.Owned.armor.Native(scale);
+                // Owner report (0.1.9): a few .50 hits stripped whole fuselage panels.
+                // The owned skin sections carry pierceTolerance ~1.3-2.0 (frames 13-50),
+                // so a 12.7 mm round (pierce 160) took ~100 HP and the panel went past its
+                // integrity threshold after two hits. Native HP loss grows faster than linear
+                // with pierce and a 20 mm round crosses 4-5 sections, so x20/x32 still peeled
+                // panels (flight-dmg3/4-20261124). Courier skins (x64) and
+                // local frames (x6) hold 12.7 mm; 20 mm HP loss did not follow pierce (dmg5) but its
+                // blast, so blast tolerance is raised too (skin x30, frames x10). Missiles still tear them.
+                if(CourierRefit&&profile.Owned.category!=null&&profile.Owned.category.StartsWith("skin_",StringComparison.Ordinal)){armor.pierceTolerance*=SkinPierceScale;armor.blastTolerance*=SkinBlastScale;}
+                else if(CourierRefit&&profile.Owned.category=="local_frame"){armor.pierceTolerance*=FramePierceScale;armor.blastTolerance*=FrameBlastScale;}
+                NativePartitionIntegration.Set(profile.Part,"armorProperties",armor);
                 foreach(var joint in (PartJoint[])NativePartitionIntegration.Get(profile.Part,"joints")){joint.breakForce=profile.Owned.jointForceN*CurrentAirframeDamagePlugin.JointStrength.Value/10f;joint.breakTorque=profile.Owned.jointTorqueNm*CurrentAirframeDamagePlugin.JointStrength.Value/10f;}
                 profile.Part.ApplyDamage(0,0,0,0);
             }
@@ -619,6 +631,8 @@ namespace Japensou.NuclearOption.CurrentDamage
                 CourierRampToe.Attach(transform,Parts.Values.Where(x=>x).Cast<UnitPart>().ToList(),all);
                 CourierSpoilerSkins.Attach(transform,Parts.Values.Where(x=>x).Cast<UnitPart>().ToList());
                 CourierEngineUniform.Apply(transform,Parts.Values.Where(x=>x).Cast<UnitPart>().ToList());
+                CurrentAirframeDamagePlugin.Log.LogInfo("Courier bomb bay: "+CourierBayClearance.Apply(transform,all)+" interior frame triangles cleared from the drop opening.");
+                try{CurrentAirframeDamagePlugin.Log.LogInfo("Courier audio: "+CourierAudio.Apply(transform,Parts.Values.Where(x=>x).Cast<UnitPart>().ToList()));}catch(Exception e){CurrentAirframeDamagePlugin.Log.LogWarning("Courier audio skipped: "+e.Message);}
                 // folding crew stairs (segments 01-09; 00 is the door): stowed, they stick out of the GE87 nose skin
                 crewStairs=all.Where(r=>r.name.Length==23&&r.name.StartsWith("SHGT_CrewAccess_Mesh_0")&&r.name!="SHGT_CrewAccess_Mesh_00").ToArray();
                 // ramp/cassette mechanisms inside the hold (the ramp skin 011 and clamshell doors 021/022 are exterior)

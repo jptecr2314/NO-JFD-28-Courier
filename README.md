@@ -1,4 +1,4 @@
-﻿# JFD-28 Courier 0.1.9 [0.34.6]
+# JFD-28 Courier 0.2.0 [0.34.6]
 
 Courier-only distribution for Nuclear Option 0.34.6. **Balanced is fixed.**
 Bastion and the Performance/Detailed choices are not included. The Courier's
@@ -30,6 +30,42 @@ turret options, cargo/weapon selectors and liveries remain.
   is drawn within 250 m of the camera, from any angle: through the windows,
   an open ramp or bay, and damage openings. Dark grey cabin finish.
 
+## Changes in 0.2.0
+
+- New cargo: the Spearhead MBT (71 t, stowed 9.7 x 4.2 x 4.3 m) is offered in
+  every cargo position that takes the Type-12 MBT. With the bundled Cargo Retro
+  Landing Kit it is offered as the Spearhead MBT [Retro Kit] (kit 9.6 t). Three
+  Spearheads bring the Courier to about 324 t.
+- Faster cargo release. Each load starts 0.25 s after the press instead of 1 s,
+  runs along the bay at 12 m/s in the air (7 m/s on the ground) instead of
+  5 m/s, and is pushed off the ramp faster. In the air the first load leaves
+  about 6.5 s after release instead of about 10 s, and the next ones follow
+  every 4 to 5 s. On the ground three IFVs are out in 30 s instead of 39 s.
+- Pressing release while a load is still moving now queues the next load in the
+  air as well (before, only on the ground); every press counts, up to the loads
+  left on board.
+- Ground unloading with heavy loads: with three Spearheads the gear compresses
+  further and the ramp exit check reached into the runway, so no vehicle came
+  out. The check now keeps clear of the ground under the ramp; walls,
+  buildings, ships and vehicles still block the exit.
+- Ventral weapons bay: besides the 13 weapons it already offered, every
+  air-to-ground missile or bomb that uses bay doors and fits one of the bay's
+  existing positions is offered as a full rack, for example ATP-1, Eyeball
+  Mk.II and AT-145 x84. The same rule picks up weapons added by other mods.
+  PAB-125, PAB-250, air-to-air missiles, guns, cargo and jammers stay out.
+- Damage appearance follows the game's own aircraft: as a section loses health
+  it shows more holes (up to about 13% open at zero health), clustered, of
+  mixed sizes, with a dark cavity and a soot ring. A few machine-gun rounds no
+  longer strip whole panels; the skin holds against small-arms fire.
+- Engine exhausts carry irregular, weathered heat marks instead of a perfectly
+  even band.
+- Fixed: two interior ring segments crossed the open bomb bay as bars.
+- Sounds: bullet impacts on the airframe, left/right engine-fire warnings, bomb
+  bay doors from the bay itself (they came from the inner engines), the cargo
+  ramp, and the speed brakes (one source for the eight spoilers, as on the
+  game's jets). The eight engines no longer play in phase as one stacked loop
+  and are balanced to sound like a four-engine bomber, and all of them switch
+  between cockpit (2D) and outside (3D) sound.
 ## Changes in 0.1.9
 
 - Fixed: with NOVR (or another mod that relocates the game's Assembly-CSharp)
@@ -63,40 +99,6 @@ turret options, cargo/weapon selectors and liveries remain.
   steer against its drag, so it brakes straight down where it falls when that
   ground is safe. The cockpit notice says where it is going. Remember that the
   container still rolls along the bay for about ten seconds after release.
-
-## Changes in 0.1.8
-
-- Pitch handling for a heavy transport: with full back stick the flight
-  assist now holds about 2.5 g, about 5 degrees per second of pitch rate and
-  about 30 degrees of nose-up attitude, so the Courier no longer loops. Nose-down
-  inputs and flying with the flight assist off are unchanged.
-- Roll spoilers open visibly on their hinges (about 25 degrees on the wing going
-  down) instead of rising like a flat step; a strip of wing-root fairing no
-  longer lifts with the inboard spoiler. Roll forces are unchanged.
-- Cargo still mounted when the Courier is destroyed now comes out of the wreck
-  as destroyed vehicles, as on other cargo aircraft.
-- All in-game airdrop and gun-cradle notices are in English.
-- Gun interlock: before a defensive gun fires, a thin check runs along each
-  barrel; if it meets any part of the same Courier, that gun holds fire until
-  the barrel clears. The guns can no longer shoot their own aircraft. Other
-  aircraft and units are not affected.
-- Ground unloading: each vehicle waits until it has settled off the ramp, then
-  drives about 85 m aft of the Courier (alternating left and right) before its
-  normal AI takes over and heads for its objectives, so vehicles no longer turn
-  back into the aircraft. Pressing release again while a vehicle is still on
-  the ramp no longer asks you to clear the area: the release is queued and the
-  next vehicle comes out as soon as the exit lane is free.
-- Cargo ramp: the slatted face of the folding ramp toe now flips out together
-  with the toe; before, it stayed lying on top of the open ramp.
-- Cargo layouts with more than two loads: cargo added by other mods (for example
-  the CRV-L Serval vehicles) and its Retro Kit version could be chosen in the
-  cargo organizer but was refused when the Courier spawned, so only the game's
-  own loads appeared. The Courier now accepts every load the organizer offers.
-- Cargo is released only with the normal weapon release (select Cargo and
-  fire), on the ground or in the air. The separate Ctrl+F10 unload key was
-  removed.
-- The 20 mm flank guns now show a muzzle flash and smoke on every burst,
-  using the effects of the Courier's 35 mm guns.
 
 ## Requirements
 
@@ -135,9 +137,13 @@ separately.
 - First detonation close to the aircraft: one frame of about 27 ms on the test PC (later ones about 17 ms).
 - About 813,000 triangles at full detail, interior included.
 - The gun interlock holds fire while a barrel points at the Courier itself, so a turret can stay silent against targets hidden behind the tail, wings or engines from where it sits.
-- Retro Kit containers pick a friendly unit within a reach that grows with release height (200 to 1,200 m around the point where the container would fall). Remember the container rolls along the bay for about ten seconds after release before it leaves the aircraft.
+- Retro Kit containers pick a friendly unit within a reach that grows with release height (200 to 1,200 m around the point where the container would fall). The container still travels along the bay for a few seconds after release before it leaves the aircraft.
 - The 1,500 L fuel container is too light to steer against its drag: it is never guided to a unit; it brakes straight down where it falls when that ground is safe, otherwise the release is refused.
-- Not tested in this release: the Naval Supply Container Retro Kit delivery to a friendly ship, the Small Munitions Pallet and Radar Container Retro Kits, and bomb-bay munition release and landing.
+- Not tested in this release: the Naval Supply Container Retro Kit delivery to a friendly ship, the Small Munitions Pallet and Radar Container Retro Kits, and bomb-bay munition landing. Of the containers, only the Munitions Container was airdropped at the new, faster release speed.
+- Bay weapons from other mods: the bay accepts them by the same rule as the game's own weapons, but no other weapon mod was installed during testing. The new bay racks were checked by loading and by the ammunition count when fired.
+- The Spearhead MBT was tested released in the air at 700 m above ground with the Retro Kit, and unloaded on the ground on a level runway; three Spearheads make the Courier about 324 t.
+- Damage appearance was measured with forced health levels; it was not re-checked with live fire in flight in this release.
+- The new sounds were checked by their sources, clips and 2D/3D state in the game, not judged by ear.
 
 ## Credits
 
@@ -171,7 +177,7 @@ own installed game. Supply csc.exe through -CompilerPath; the compiler and the
 game DLLs are not redistributed here.
 
 ```powershell
-./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.1.8-Balanced.zip'
+./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.2.0-Balanced.zip'
 ```
 
 The wrapper rebuilds CurrentAirframeDamage.dll with COURIER_ONLY and

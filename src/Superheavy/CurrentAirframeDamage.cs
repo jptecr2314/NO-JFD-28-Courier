@@ -35,7 +35,7 @@ namespace Japensou.NuclearOption.CurrentDamage
         internal static readonly Dictionary<string,PaintAsset> Assets=new Dictionary<string,PaintAsset>();
         private void Awake()
         {
-            Log=Logger;
+            Log=Logger;CourierEngineUniform.Warm();
 #if !COURIER_BALANCED_ONLY
             Quality=Config.Bind("Courier presentation","Quality preset",CourierQuality.Balanced,"Courier visual detail and damage-work budget. Performance, Balanced and Detailed use identical native damage, joints, fuel and physical debris. Changes apply to existing aircraft. Detailed retains the original close-up interior mesh.");
             Quality.SettingChanged+=(s,e)=>CourierPresentation.ApplyToAll();

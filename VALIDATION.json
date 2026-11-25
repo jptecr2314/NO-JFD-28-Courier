@@ -1,12 +1,12 @@
 {
   "aircraft": "JFD-28 Courier",
   "quality": "Balanced",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "gameVersion": "0.34.6",
   "files": [
     {
       "folder": "br.japensou.nuclearoption.superheavygroundtest",
-      "name": "JFD-28 Courier_0.1.9.nobp",
+      "name": "JFD-28 Courier_0.2.0.nobp",
       "sha256": "AFBAC9BE0F81AE6F3A23FA0955320D5192B4ED804C2B0945CABA057CD24A9A3F"
     },
     {
@@ -17,7 +17,7 @@
     {
       "folder": "br.japensou.nuclearoption.superheavygroundtest",
       "name": "CurrentAirframeDamage.dll",
-      "sha256": "7B3DDB9CAC492AD2CDDEC2133BC9980FCE6CB9B2150120770EB4E1C6B4657C69"
+      "sha256": "5BAF18CA49673A7D539C17579ED52F440E6368E0EA334ED4B04AA4D3CC4CD32C"
     },
     {
       "folder": "br.japensou.nuclearoption.superheavygroundtest",
@@ -33,7 +33,7 @@
   "retroKitVersion": "0.4.0",
   "nativeReviews": [
     {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261124-015150",
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261125-022152",
       "checks": [
         {
           "aircraft": "JFD-28 Courier",
@@ -53,7 +53,7 @@
         },
         {
           "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 5.43482876,
+          "rampSeparation": 6.22163153,
           "rampRepairedWithSupports": true
         },
         {
@@ -67,14 +67,14 @@
           "physicalGearDebris": true,
           "visualWheelsFollowNativeDebris": true,
           "coreHp": 100.0,
-          "coordinatorPeakMs": 3.6241,
+          "coordinatorPeakMs": 3.6575,
           "gearOriginPairs": 7
         }
       ],
       "scope": "Native support-loss, authored gear animation, physical debris and ramp repair. This is not a frame-time benchmark."
     },
     {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261124-015224",
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261125-022227",
       "checks": [
         {
           "aircraft": "JFD-28 Courier",
@@ -94,7 +94,7 @@
         },
         {
           "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 6.51831245,
+          "rampSeparation": 6.522352,
           "rampRepairedWithSupports": true
         },
         {
@@ -108,7 +108,7 @@
           "physicalGearDebris": true,
           "visualWheelsFollowNativeDebris": true,
           "coreHp": 100.0,
-          "coordinatorPeakMs": 3.9849,
+          "coordinatorPeakMs": 3.7492,
           "gearOriginPairs": 7
         }
       ],
@@ -173,6 +173,30 @@
         ],
         "novr": "normal path verified by the native reviews; relocated-assembly path not run in a NOVR install"
       }
+    },
+    "release020": {
+      "candidate": "D:/Build/Superheavy/courier-020/candidate",
+      "runtime": "CurrentAirframeDamage.dll 5BAF18CA (COURIER_ONLY, COURIER_BALANCED_ONLY); bundle and family DLLs identical to 0.1.9",
+      "nativeReviews": [
+        "native-Regression-20261125-022152",
+        "native-Flight-20261125-022227"
+      ],
+      "damage": [
+        "flight-dmg6-20261124-032824",
+        "flight-health12-20261124-060236"
+      ],
+      "exhaust": "flight-heat1-20261124-024018",
+      "bayBars": "flight-barclear2",
+      "sounds": [
+        "flight-audio3-20261124-223158",
+        "flight-audio4-20261124-232424",
+        "flight-audio6-20261124-234737",
+        "flight-audio11-20261125-020341 (speed brakes open 1.00, source playing, cockpit 2D / outside 3D)"
+      ],
+      "spearheadAirSalvo": "flight-salvo4-20261125-015924 (3/3 Spearhead [Retro Kit] at 6.4, 10.6, 15.5 s; base Spearhead not offered beside the Retro version; bay rack ATP-1 x84 fired, ammo 84 -> 82)",
+      "spearheadGroundUnload": "flight-unload5-20261125-020526 (3/3 out at 8.0, 19.8, 33.0 s, 84-98 m clear, no contact)",
+      "ifvGroundUnload": "flight-unloadifv-20261125-020706 (3/3 at 7.7, 18.0, 30.0 s; 0.1.9 bench 9.1, 22.8, 39.1 s)",
+      "containerDrop": "flight-drop020line-* (Munitions Container [Retro Kit], rail ETA 6.8 s instead of 9.9 s, guided to the nearest friendly IFV, landed 29 m from it, upright)"
     }
   },
   "hangarExit": true,
