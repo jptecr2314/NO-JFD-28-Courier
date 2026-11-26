@@ -1,4 +1,4 @@
-# JFD-28 Courier 0.2.0 [0.34.6]
+# JFD-28 Courier 0.2.1 [0.34.6]
 
 Courier-only distribution for Nuclear Option 0.34.6. **Balanced is fixed.**
 Bastion and the Performance/Detailed choices are not included. The Courier's
@@ -29,6 +29,27 @@ turret options, cargo/weapon selectors and liveries remain.
 - The whole interior (flight deck, cargo bay, structure and ramp mechanisms)
   is drawn within 250 m of the camera, from any angle: through the windows,
   an open ramp or bay, and damage openings. Dark grey cabin finish.
+
+## Changes in 0.2.1
+
+- High airdrops with the Retro Kit work again. Over Ignus Archipelago, whose
+  ground sits near sea level, a release at a normal flight altitude was more
+  than 1.5 km above the ground and the cockpit reported no reachable terrain
+  for Retro Kit braking unless the aircraft flew very low. The bundled Cargo
+  Retro Landing Kit 0.4.1 now lights its motors higher on a fast fall, so a
+  release up to about 4 km above the ground lands (the heaviest tanks run out
+  of propellant above that and the release is refused). Low releases are
+  unchanged.
+- Fixed: leaving the Courier at a base (for example in the hangar, to change
+  the loadout) left every cargo vehicle behind as a destroyed wreck. The game
+  returns a parked aircraft to the inventory when its crew leaves, and the
+  Courier treated that as being destroyed. Cargo now comes off only when the
+  aircraft is really destroyed.
+- Faster ventral bomb bay: the doors open in 4 seconds instead of about 8, so
+  bay weapons leave sooner. Closing is unchanged.
+- The two flank camera screens above the windscreen switch off when the gear
+  retracts and come back when it is lowered. The cargo-compartment camera
+  stays on.
 
 ## Changes in 0.2.0
 
@@ -88,7 +109,7 @@ turret options, cargo/weapon selectors and liveries remain.
   degrees (55 on the ground) at a steady hinge rate, and roll spoilers rise up
   to about 35 degrees on the wing going down. Before, the panels lagged, sagged
   and opened unevenly, and the speed brake stood almost upright.
-- The Cargo Retro Landing Kit 0.4.0 is bundled in the package (folder
+- The Cargo Retro Landing Kit 0.4.1 is bundled in the package (folder
   BepInEx/plugins/Type12RetroKit). It replaces any older copy of the kit.
 - Retro Kit supply containers (munitions, fuel and naval supply). After an air
   release the container steers to the nearest friendly unit it can reach from
@@ -177,7 +198,7 @@ own installed game. Supply csc.exe through -CompilerPath; the compiler and the
 game DLLs are not redistributed here.
 
 ```powershell
-./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.2.0-Balanced.zip'
+./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.2.1-Balanced.zip'
 ```
 
 The wrapper rebuilds CurrentAirframeDamage.dll with COURIER_ONLY and

@@ -28,11 +28,17 @@ namespace Japensou.NuclearOption.CurrentDamage
             h.Patch(disabled, postfix: new HarmonyMethod(typeof(CourierCargoRelease), nameof(AfterDisabled)));
         }
 
-        private static void AfterDisabled(Aircraft __instance)
+        // Tester report on 0.2.0 (26/11/2026): leaving the Courier in the hangar to change the loadout left the cargo
+        // vehicles inside as wrecks. Native ReturnToInventory (crew leaves a stationary aircraft at a friendly base)
+        // sets unitState = Returned and then disabled = true, which runs the same UnitDisabled hook. A returned
+        // aircraft gets its loadout back natively; only a lost aircraft drops its cargo.
+        private static void AfterDisabled(Aircraft __instance, bool __1)
         {
             try
             {
                 if (__instance == null || __instance.definition == null || __instance.definition.jsonKey != "jp_superheavy_ground_test")
+                    return;
+                if (!__1 || __instance.unitState == Unit.UnitState.Returned)
                     return;
                 var cargo = new HashSet<MountedCargo>(__instance.GetComponentsInChildren<MountedCargo>(true));
                 if (__instance.partLookup != null)

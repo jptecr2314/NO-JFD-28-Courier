@@ -1,14 +1,9 @@
 {
   "aircraft": "JFD-28 Courier",
   "quality": "Balanced",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "gameVersion": "0.34.6",
   "files": [
-    {
-      "folder": "br.japensou.nuclearoption.superheavygroundtest",
-      "name": "JFD-28 Courier_0.2.0.nobp",
-      "sha256": "AFBAC9BE0F81AE6F3A23FA0955320D5192B4ED804C2B0945CABA057CD24A9A3F"
-    },
     {
       "folder": "br.japensou.nuclearoption.superheavygroundtest",
       "name": "SuperheavyGroundPhysics.dll",
@@ -16,24 +11,29 @@
     },
     {
       "folder": "br.japensou.nuclearoption.superheavygroundtest",
-      "name": "CurrentAirframeDamage.dll",
-      "sha256": "5BAF18CA49673A7D539C17579ED52F440E6368E0EA334ED4B04AA4D3CC4CD32C"
-    },
-    {
-      "folder": "br.japensou.nuclearoption.superheavygroundtest",
       "name": "SuperheavyAirframeData.dll",
       "sha256": "7C725E0057D11EE2FBDDF5E940663AAF2DC7AEB8A147A923346A094955ECC1A4"
     },
     {
+      "folder": "br.japensou.nuclearoption.superheavygroundtest",
+      "name": "CurrentAirframeDamage.dll",
+      "sha256": "D7B8665AA4523A1B2E74682889F94277FE7C55AB9FA670BCEB86F2C0B612FC42"
+    },
+    {
+      "folder": "br.japensou.nuclearoption.superheavygroundtest",
+      "name": "JFD-28 Courier_0.2.1.nobp",
+      "sha256": "AFBAC9BE0F81AE6F3A23FA0955320D5192B4ED804C2B0945CABA057CD24A9A3F"
+    },
+    {
       "folder": "Type12RetroKit",
       "name": "Type12RetroKit.dll",
-      "sha256": "1634670EC92213B71A6C2809987B20EDBCF7B36522909B8FB5EC619E235F6A2D"
+      "sha256": "D01C6A2E8D0D2A99CBF3092BACE6B7788ED5591BA5FA05F79B83E07D67B07CF7"
     }
   ],
-  "retroKitVersion": "0.4.0",
+  "retroKitVersion": "0.4.1",
   "nativeReviews": [
     {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261125-022152",
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261126-025725",
       "checks": [
         {
           "aircraft": "JFD-28 Courier",
@@ -53,12 +53,12 @@
         },
         {
           "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 6.22163153,
+          "rampSeparation": 4.792632,
           "rampRepairedWithSupports": true
         },
         {
           "nativeGearBarrierContacts": 1,
-          "debrisVelocity": "(0.00, 0.00, 0.00)",
+          "debrisVelocity": "(-0.02, -0.02, 0.00)",
           "selectedLoadoutPreserved": true,
           "modularTurretsFollowSectionOwners": true
         },
@@ -67,14 +67,14 @@
           "physicalGearDebris": true,
           "visualWheelsFollowNativeDebris": true,
           "coreHp": 100.0,
-          "coordinatorPeakMs": 3.6575,
+          "coordinatorPeakMs": 3.6031,
           "gearOriginPairs": 7
         }
       ],
       "scope": "Native support-loss, authored gear animation, physical debris and ramp repair. This is not a frame-time benchmark."
     },
     {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261125-022227",
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261126-025815",
       "checks": [
         {
           "aircraft": "JFD-28 Courier",
@@ -94,12 +94,12 @@
         },
         {
           "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 6.522352,
+          "rampSeparation": 5.288423,
           "rampRepairedWithSupports": true
         },
         {
           "nativeGearBarrierContacts": 1,
-          "debrisVelocity": "(0.00, 0.00, 0.00)",
+          "debrisVelocity": "(0.05, -1.33, -1.53)",
           "selectedLoadoutPreserved": true,
           "modularTurretsFollowSectionOwners": true
         },
@@ -108,7 +108,7 @@
           "physicalGearDebris": true,
           "visualWheelsFollowNativeDebris": true,
           "coreHp": 100.0,
-          "coordinatorPeakMs": 3.7492,
+          "coordinatorPeakMs": 4.0261,
           "gearOriginPairs": 7
         }
       ],
@@ -201,5 +201,19 @@
   },
   "hangarExit": true,
   "windowCabin": true,
-  "scope": "Native single-player reviews and real-game single-player runs listed here. No multiplayer certification and no claim beyond the listed runs."
+  "scope": "Native single-player reviews and real-game single-player runs listed here. No multiplayer certification and no claim beyond the listed runs.",
+  "basedOn": "first 0.2.1 package (Retro Kit 0.4.1) + runtime changes (no cargo wrecks on return to inventory, 4 s bomb bay, flank camera screens off with the gear up)",
+  "retroKitEvidence": [
+    "Type12RetroKit 0.4.1: build-type12-retro.ps1 PASS (RetroIgnitionPolicyTests: 3 km lands, 6 km fuel-bound unsafe).",
+    "Ignus (Terrain_naval) planner scan, fixture: 0.4.0 67/84 resolved (every 2.5 km case refused); 0.4.1 56/56 at 0.3/1.2/2.5/3.5 km AGL.",
+    "Real flight over Ignus, IFV [Retro Kit] salvo at 3000 m AGL: 0.4.0 refused (tester message); 0.4.1 touchdown 0.9 m/s, 256 kg fuel left.",
+    "Real flight over Ignus at 700 m AGL with 0.4.1: touchdown 1.0 m/s."
+  ],
+  "runtimeEvidence": [
+    "LEAVE probe (crew leaves a parked Courier with 3 IFVs at the base): 0.2.0 left 3 destroyed IFVs (flight-leave-020-20261126-023059); the fixed runtime left none (flight-leave-fix-20261126-023148).",
+    "KILLCARGO probe with the final runtime: a destroyed Courier still releases its cargo (flight-f-kill-20261126-025556).",
+    "Final runtime: LEAVE 0 vehicles left (flight-f-leave-20261126-025513).",
+    "Bomb bay gate openSpeed 0.12 -> 0.25: fully open in 8.33 s before, 4.00 s now (flight-cockpit-20261126-024318, flight-f-cockpit-20261126-025437); bay bomb released within the probe window (flight-f-bay-20261126-025625).",
+    "Flank camera feeds: gear down 4 feeds with live flank screens, gear up only ADAPT and CargoCamera with dark flank screens, gear down again restored (flight-gearcam2-20261126-025232)."
+  ]
 }

@@ -1,4 +1,18 @@
-﻿# 0.2.0 prerelease [0.34.6]
+﻿# 0.2.1 prerelease [0.34.6]
+
+- Fixed: high airdrops with the Retro Kit. Over Ignus Archipelago (ground near
+  sea level) a release at normal altitude was refused with "no reachable
+  terrain for Retro Kit braking" unless flying very low. The bundled Cargo
+  Retro Landing Kit 0.4.1 ignites higher on a fast fall, so releases up to
+  about 4 km above the ground land; low releases are unchanged.
+- Fixed: leaving the Courier at a base (for example in the hangar to change the
+  loadout) no longer leaves the cargo vehicles behind as wrecks. Cargo comes
+  off only when the aircraft is destroyed.
+- Bomb bay doors open in 4 s instead of about 8 s.
+- The flank camera screens above the windscreen switch off with the gear up;
+  the cargo camera stays on.
+
+# 0.2.0 prerelease [0.34.6]
 
 - New cargo: Spearhead MBT (71 t), offered wherever the Type-12 MBT is. With
   the bundled Retro Kit it is offered as the Spearhead MBT [Retro Kit].
