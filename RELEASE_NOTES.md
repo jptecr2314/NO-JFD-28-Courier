@@ -9,8 +9,10 @@
   loadout) no longer leaves the cargo vehicles behind as wrecks. Cargo comes
   off only when the aircraft is destroyed.
 - Bomb bay doors open in 4 s instead of about 8 s.
-- The flank camera screens above the windscreen switch off with the gear up;
-  the cargo camera stays on.
+- The ceiling camera screens above the windscreen are off. The framed flank
+  camera screens beside the centre console switch off with the gear up; the
+  cargo camera stays on.
+- Fixed: jagged strip along the top of the windscreen in the cockpit.
 
 # 0.2.0 prerelease [0.34.6]
 

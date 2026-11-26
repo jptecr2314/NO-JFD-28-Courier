@@ -47,9 +47,14 @@ turret options, cargo/weapon selectors and liveries remain.
   aircraft is really destroyed.
 - Faster ventral bomb bay: the doors open in 4 seconds instead of about 8, so
   bay weapons leave sooner. Closing is unchanged.
-- The two flank camera screens above the windscreen switch off when the gear
-  retracts and come back when it is lowered. The cargo-compartment camera
-  stays on.
+- The two camera screens on the ceiling above the windscreen are switched off.
+  The two framed flank camera screens beside the centre console switch off
+  when the gear retracts and come back when it is lowered. The
+  cargo-compartment camera stays on.
+- Fixed: a jagged strip of dark and white slivers along the top of the
+  windscreen, seen from the cockpit. The interior lining there had gaps that
+  showed the outer skin; a dark backing now closes them. The exterior is
+  unchanged.
 
 ## Changes in 0.2.0
 
