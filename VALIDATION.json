@@ -1,7 +1,7 @@
 {
   "aircraft": "JFD-28 Courier",
   "quality": "Balanced",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "gameVersion": "0.34.6",
   "files": [
     {
@@ -17,7 +17,7 @@
     {
       "folder": "br.japensou.nuclearoption.superheavygroundtest",
       "name": "CurrentAirframeDamage.dll",
-      "sha256": "148C5FA1883D4D85141EE4C2D90DD0CFF6988E2FF1F860D837EA3960019DD027"
+      "sha256": "845ABE675C84EEA8D960AD1CD2E3AB4779ECDE198D9DD6242B0D7880788F76AA"
     },
     {
       "folder": "br.japensou.nuclearoption.superheavygroundtest",
@@ -33,7 +33,7 @@
   "retroKitVersion": "0.4.1",
   "nativeReviews": [
     {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261126-041958",
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Regression-20261127-095305",
       "checks": [
         {
           "aircraft": "JFD-28 Courier",
@@ -53,7 +53,7 @@
         },
         {
           "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 6.30779076,
+          "rampSeparation": 5.05729,
           "rampRepairedWithSupports": true
         },
         {
@@ -67,14 +67,14 @@
           "physicalGearDebris": true,
           "visualWheelsFollowNativeDebris": true,
           "coreHp": 100.0,
-          "coordinatorPeakMs": 3.5529,
+          "coordinatorPeakMs": 3.9525,
           "gearOriginPairs": 7
         }
       ],
       "scope": "Native support-loss, authored gear animation, physical debris and ramp repair. This is not a frame-time benchmark."
     },
     {
-      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261126-042033",
+      "folder": "D:\\Artifacts\\Superheavy\\courier-ge87-integration-20261120\\02-engines-unity\\native-Flight-20261127-095344",
       "checks": [
         {
           "aircraft": "JFD-28 Courier",
@@ -94,7 +94,7 @@
         },
         {
           "rampReleasedAfterBothSupportsFail": true,
-          "rampSeparation": 6.52258,
+          "rampSeparation": 6.4124794,
           "rampRepairedWithSupports": true
         },
         {
@@ -108,7 +108,7 @@
           "physicalGearDebris": true,
           "visualWheelsFollowNativeDebris": true,
           "coreHp": 100.0,
-          "coordinatorPeakMs": 3.481,
+          "coordinatorPeakMs": 3.541,
           "gearOriginPairs": 7
         }
       ],
@@ -202,7 +202,7 @@
   "hangarExit": true,
   "windowCabin": true,
   "scope": "Native single-player reviews and real-game single-player runs listed here. No multiplayer certification and no claim beyond the listed runs.",
-  "basedOn": "first 0.2.1 package (Retro Kit 0.4.1) + runtime changes (no cargo wrecks on return to inventory, 4 s bomb bay, ceiling camera screens off, framed flank screens follow the gear, windscreen strip backing)",
+  "basedOn": "published 0.2.1 package + water contact taken at the hull (CourierWaterline)",
   "retroKitEvidence": [
     "Type12RetroKit 0.4.1: build-type12-retro.ps1 PASS (RetroIgnitionPolicyTests: 3 km lands, 6 km fuel-bound unsafe).",
     "Ignus (Terrain_naval) planner scan, fixture: 0.4.0 67/84 resolved (every 2.5 km case refused); 0.4.1 56/56 at 0.3/1.2/2.5/3.5 km AGL.",
@@ -210,12 +210,10 @@
     "Real flight over Ignus at 700 m AGL with 0.4.1: touchdown 1.0 m/s."
   ],
   "runtimeEvidence": [
-    "LEAVE probe (crew leaves a parked Courier with 3 IFVs at the base): 0.2.0 left 3 destroyed IFVs (flight-leave-020-20261126-023059); the fixed runtime left none (flight-leave-fix-20261126-023148).",
-    "KILLCARGO probe with the final runtime: a destroyed Courier still releases its cargo (flight-f-kill-20261126-025556).",
-    "Final runtime: LEAVE 0 vehicles left (flight-f-leave-20261126-025513).",
-    "Bomb bay gate openSpeed 0.12 -> 0.25: fully open in 8.33 s before, 4.00 s now (flight-cockpit-20261126-024318, flight-f-cockpit-20261126-025437); bay bomb released within the probe window (flight-f-bay-20261126-025625).",
-    "Flank camera feeds: gear down 4 feeds with live flank screens, gear up only ADAPT and CargoCamera with dark flank screens, gear down again restored (flight-gearcam2-20261126-025232).",
-    "Ceiling camera screens (submesh 0 of SHGT_MFD_PortCamera/StarboardCamera) dark at all times; the framed flank screens beside the centre console live with the gear down and dark with the gear up (flight-s-console-20261126-041700, flight-s-gearcam-20261126-041853).",
-    "Jagged strip at the top of the windscreen: gaps in the inward cockpit coating showed the two-sided outer skin; a dark backing from the nose skin within 4 m of the pilot eye, 4 cm inside, closes it (flight-console-20261126-040955, -041409); exterior unchanged within noise."
+    "Owner video 27/11/2026: cockpit pieces displaced in a ~3 m pass at 805 km/h over the sea, before contact.",
+    "0.2.1 pass at 805 km/h over open sea: vertical fins and nose side shells/frames lost their joints below HUD 2.8 m, the belly about 6 m above the sea (flight-waterpass-20261127-073605, flight-waterpass-wet-20261127-081114); the native water check uses each part's lift point, 9 m below the fins and 0.9 m below the wheel line for the nose (flight-waterline-lift-20261127-081305).",
+    "0.2.2 (CourierWaterline): pass held at HUD 8, 4, 3, 2, 1.5, 1 and 0.5 m, 0 parts lost (flight-waterpass-022e-high-20261127-082933); descending into the sea, 0 parts lost down to the wheel line 2.5 m below the sea, first wet part the forward belly with the wheel line 2.95 m below the sea (belly at the waterline), then the native breakup (flight-waterpass-022e-contact-20261127-082848).",
+    "Root keeps the native depth once the hull is in the sea (native buoyancy after a ditching): HUD 8 to 0.5 m, 0 lost (flight-waterpass-022f-high-20261127-095208); first wet part with the belly at the waterline (flight-waterpass-022f-contact-20261127-095125).",
+    "Ditching at 100 km/h, belly brought onto the sea and released at idle: 0.2.2 stays intact and sinks at about 2.4 m/s (flight-ditch5-022-20261127-094656); 0.2.1 had lost 55 parts to water drag on the fins and nose before contact and sank at about 1.9 m/s (flight-ditch4-021-20261127-093722). Neither floats in this probe."
   ]
 }

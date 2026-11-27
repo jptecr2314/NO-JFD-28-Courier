@@ -1,4 +1,4 @@
-# JFD-28 Courier 0.2.1 [0.34.6]
+# JFD-28 Courier 0.2.2 [0.34.6]
 
 Courier-only distribution for Nuclear Option 0.34.6. **Balanced is fixed.**
 Bastion and the Performance/Detailed choices are not included. The Courier's
@@ -29,6 +29,18 @@ turret options, cargo/weapon selectors and liveries remain.
 - The whole interior (flight deck, cargo bay, structure and ramp mechanisms)
   is drawn within 250 m of the camera, from any angle: through the windows,
   an open ramp or bay, and damage openings. Dark grey cabin finish.
+
+## Changes in 0.2.2
+
+- Fixed: in a fast, low pass over the sea the Courier was damaged by the water
+  before touching it. With the radar altitude below about 2.8 m (the belly
+  still about 6 m above the sea), the vertical fins, the nose side panels and
+  cockpit frames broke loose. The game checks the water at a reference point
+  of each part, and on the Courier several of those points sit far below the
+  part itself (the fins' points are at the wheel line). Each part now counts
+  as in the water only when its own skin reaches the sea. A pass at 805 km/h
+  down to 0.5 m radar altitude loses no part; the airframe still breaks up
+  as before once the belly hits the water.
 
 ## Changes in 0.2.1
 
@@ -203,7 +215,7 @@ own installed game. Supply csc.exe through -CompilerPath; the compiler and the
 game DLLs are not redistributed here.
 
 ```powershell
-./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.2.1-Balanced.zip'
+./Build.ps1 -GamePath 'C:/Games/Nuclear Option' -CompilerPath 'C:/SDK/Roslyn/csc.exe' -ReleaseZip 'C:/Downloads/JFD-28-Courier-0.2.2-Balanced.zip'
 ```
 
 The wrapper rebuilds CurrentAirframeDamage.dll with COURIER_ONLY and

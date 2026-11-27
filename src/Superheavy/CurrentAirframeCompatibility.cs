@@ -47,6 +47,7 @@ namespace Japensou.NuclearOption.CurrentDamage
             CourierHandling.Install(h);
             CourierCargoRelease.Install(h);
             CourierBayAndScreens.Install(h);
+            CourierWaterline.Install(h);
             CourierEnglishNotices.Install(h);
             CourierFireInterlock.Install(h);
             CourierGroundUnload.Install(h);

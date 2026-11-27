@@ -1,4 +1,12 @@
-﻿# 0.2.1 prerelease [0.34.6]
+# 0.2.2 prerelease [0.34.6]
+
+- Fixed: water damage before contact. In a fast pass a few metres over the
+  sea the vertical fins, nose side panels and cockpit frames broke loose with
+  the belly still about 6 m above the water. Parts now count as in the water
+  only when their own skin reaches it; the breakup on a real water impact is
+  unchanged.
+
+# 0.2.1 prerelease [0.34.6]
 
 - Fixed: high airdrops with the Retro Kit. Over Ignus Archipelago (ground near
   sea level) a release at normal altitude was refused with "no reachable
